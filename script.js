@@ -57,7 +57,7 @@ function work() {
         const element = document.createElement("div");
         element.setAttribute("class", "item");
         if (animation.checked) {
-            element.setAttribute("style", "animation-name: appear; animation-duration: 1s; animation-delay: " + i * 0.1 + "s; opacity: 0%;");
+            element.setAttribute("style", "animation-name: appear; animation-duration: 2s; animation-delay: " + i * 0.1 + "s; opacity: 0%;");
         }
         for (let j = 0; j < teams[i].length; j++) {
             var child = document.createElement("p");
