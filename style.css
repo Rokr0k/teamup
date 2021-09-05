@@ -14,29 +14,44 @@ body {
     padding: 10px;
     background: #efdf88;
     text-align: center;
+    vertical-align: middle;
 }
 
 input {
     background: transparent;
     border: 5px #000000 solid;
     border-radius: 20px;
-    padding: 5px 10px 5px 10px;
+    vertical-align: middle;
 }
 
 input[type="number"] {
     width: 60px;
     font-size: inherit;
+    padding: 5px 10px 5px 10px;
 }
 
 input[type="text"] {
-    width: 150px;
+    width: 200px;
     font-size: inherit;
+    padding: 5px 10px 5px 10px;
 }
 
 input[type="button"] {
     width: 100px;
     font-size: inherit;
     border: 5px #ffffff solid;
+    padding: 5px 10px 5px 10px;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 40px;
+    height: 40px;
+    border: 5px #ffffff solid;
+    background: transparent;
+}
+input[type="checkbox"]:checked {
+    background: #fe9898;
 }
 
 #container {
@@ -49,10 +64,8 @@ input[type="button"] {
 }
 
 .item {
-    animation-name: appear;
-    animation-duration: 1s;
     background: #efdf88;
-    border-radius: 10px;
+    border-radius: 20px;
     vertical-align: middle;
     text-align: center;
     margin: 10px;
@@ -77,4 +90,15 @@ input[type="button"] {
         transform: translateY(0);
         opacity: 100%;
     }
+}
+
+#wish {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
