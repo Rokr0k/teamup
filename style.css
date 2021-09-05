@@ -1,37 +1,80 @@
-html, body {
-    height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 10px;
+    background: #ccbb33;
+    font-family: 'Nanum Gothic', sans-serif;
 }
+
 #control {
-    font-size: 20px;
-    height: 30px;
-    padding-bottom: 10px;
+    font-size: 30px;
+    border-radius: 50px;
+    margin: 10px;
+    padding: 10px;
+    background: #efdf88;
+    text-align: center;
+}
+
+input {
+    background: transparent;
+    border: 5px #000000 solid;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
 }
 
 input[type="number"] {
-    width: 50px;
-    height: 20px;
+    width: 60px;
+    font-size: inherit;
 }
 
 input[type="text"] {
     width: 150px;
-    height: 20px;
+    font-size: inherit;
 }
 
 input[type="button"] {
-    width: 50px;
-    height: 30px;
+    width: 100px;
+    font-size: inherit;
+    border: 5px #ffffff solid;
 }
 
 #container {
     display: grid;
     width: 100%;
     height: auto;
-    grid-template-columns: repeat(auto-fill, minmax(10%, auto));
-    grid-template-rows: repeat(auto-fill, minmax(10%, auto));
+    font-size: 40px;
+    font-weight: 700;
+    grid-template-columns: repeat(6, minmax(0, auto));
 }
 
 .item {
-    border: 1px black solid;
+    animation-name: appear;
+    animation-duration: 1s;
+    background: #efdf88;
+    border-radius: 10px;
     vertical-align: middle;
     text-align: center;
+    margin: 10px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, auto));
+}
+
+.item p {
+    margin: 10px;
+    background: #dcaa55;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+@keyframes appear {
+    0% {
+        transform: translateY(20px);
+        opacity: 0%;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 100%;
+    }
 }

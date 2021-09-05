@@ -38,12 +38,7 @@ run.addEventListener("click", () => {
     for (var i = 0; i < teams.length; i++) {
         var element = "<div class=\"item\">";
         for (var j = 0; j < teams[i].length; j++) {
-            if (j == 0) {
-                element = element.concat(teams[i][j]);
-            }
-            else {
-                element = element.concat(", " + teams[i][j]);
-            }
+            element = element.concat("<p>").concat(teams[i][j]).concat("</p>");
         }
         container.innerHTML = container.innerHTML.concat(element).concat("</div>");
     }
