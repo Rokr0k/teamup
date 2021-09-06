@@ -153,23 +153,11 @@ const work = (teams) => {
 
 save.onclick = () => {
     if (teamsObj) {
-        let content = "";
-        for (let i = 0; i < teamsObj.length; i++) {
-            content = content.concat("Team #" + (i + 1) + ": ")
-            for (let j = 0; j < teamsObj[i].length; j++) {
-                if (j) {
-                    content = content.concat(", " + teamsObj[i][j]);
-                }
-                else {
-                    content = content.concat(teamsObj[i][j]);
-                }
-            }
-            content = content.concat("\n");
-        }
-        content = content.trim();
-        const blob = new Blob([content], { type: 'text/plain' });
+        const keys = Object.keys(teamsObj);
+        const content = [...teamsObj.map(row => keys.map(i => JSON.stringify(row[i], (_key, value) => value == undefined ? '' : value)).join(','))].join('\r\n');
+        const blob = new Blob([content], { type: 'text/csv' });
         const anchor = document.createElement("a");
-        anchor.download = "teams.txt";
+        anchor.download = "teams.csv";
         anchor.href = URL.createObjectURL(blob);
         anchor.click();
     }
