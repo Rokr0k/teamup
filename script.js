@@ -66,7 +66,9 @@ function roll() {
 
 let tee = null;
 let ii = 0;
-let previousElement = null;
+let previousTeam = null;
+let previousIndex = null;
+let previousTimeout = 0;
 
 window.onkeydown = e => {
     if (bgs.getAttribute("hidden") === null && e.code === "Enter") {
@@ -82,19 +84,34 @@ window.onmousedown = () => {
 };
 
 function iterate() {
-    if (previousElement) {
-        previousElement.remove();
+    if (previousTeam) {
+        previousTeam.remove();
+    }
+    if (previousIndex) {
+        previousIndex.remove();
+    }
+    if (previousTimeout) {
+        clearTimeout(previousTimeout);
     }
     if (ii < tee.length) {
-        previousElement = document.createElement("div");
-        previousElement.setAttribute("class", "iter");
-        previousElement.setAttribute("style", "animation-name: show; animation-duration: 1.4s;");
+        previousTeam = document.createElement("div");
+        previousTeam.setAttribute("class", "iter");
+        previousTeam.setAttribute("style", "animation-name: show; animation-duration: 1.4s; transform: scale(1.5)");
         for (let i = 0; i < tee[ii].length; i++) {
             var child = document.createElement("p");
             child.innerHTML = tee[ii][i];
-            previousElement.appendChild(child);
+            previousTeam.appendChild(child);
         }
-        bgs.appendChild(previousElement);
+        bgs.appendChild(previousTeam);
+        previousIndex = document.createElement("div");
+        previousIndex.setAttribute("class", "indx");
+        previousIndex.setAttribute("style", "animation-name: appear; animation-duration: 0.28s; animation-delay: 1.12s; transform: scale(1.5); opacity: 0%;");
+        previousIndex.innerHTML = ii + 1;
+        bgs.appendChild(previousIndex);
+        previousTimeout = setTimeout(e => {
+            e.style.opacity = "100%";
+            previousTimeout = 0;
+        }, 1260, previousIndex);
         chang.currentTime = 0;
         chang.play();
     }
