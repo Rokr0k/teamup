@@ -96,7 +96,7 @@ function iterate() {
     if (ii < tee.length) {
         previousTeam = document.createElement("div");
         previousTeam.setAttribute("class", "iter");
-        previousTeam.setAttribute("style", "animation-name: show; animation-duration: 1.4s; transform: scale(1.5)");
+        previousTeam.setAttribute("style", "animation-name: show; animation-duration: 1.4s;");
         for (let i = 0; i < tee[ii].length; i++) {
             var child = document.createElement("p");
             child.innerHTML = tee[ii][i];
@@ -105,7 +105,7 @@ function iterate() {
         bgs.appendChild(previousTeam);
         previousIndex = document.createElement("div");
         previousIndex.setAttribute("class", "indx");
-        previousIndex.setAttribute("style", "animation-name: appear; animation-duration: 0.28s; animation-delay: 1.12s; transform: scale(1.5); opacity: 0%;");
+        previousIndex.setAttribute("style", "animation-name: appear; animation-duration: 0.28s; animation-delay: 1.12s; opacity: 0%;");
         previousIndex.innerHTML = ii + 1;
         bgs.appendChild(previousIndex);
         previousTimeout = setTimeout(e => {

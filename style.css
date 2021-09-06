@@ -45,9 +45,10 @@ input[type="button"] {
 
 input[type="checkbox"] {
     appearance: none;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border: 5px #ffffff solid;
+    border-radius: 15px;
     background: transparent;
 }
 input[type="checkbox"]:checked {
@@ -90,12 +91,12 @@ input[type="checkbox"]:checked {
     }
     20%, 80% {
         opacity: 1;
-        transform: translateX(-100px) scale(1.5);
+        transform: translateX(-100px) scale(1);
         filter: brightness(0) saturate(0);
     }
     100% {
         opacity: 1;
-        transform: translateX(0) scale(1.5);
+        transform: translateX(0) scale(1);
         filter: brightness(1) saturate(1);
     }
 }
@@ -103,11 +104,11 @@ input[type="checkbox"]:checked {
 @keyframes appear {
     0% {
         opacity: 0;
-        transform: translateX(-100px) scale();
+        transform: translateX(-100px);
     }
     100% {
         opacity: 1;
-        transform: translateX(0) scale();
+        transform: translateX(0);
     }
 }
 
@@ -131,7 +132,6 @@ input[type="checkbox"]:checked {
     width: 100%;
     height: 100%;
     object-fit: fill;
-    font-size: 40px;
     font-weight: 700;
     background: radial-gradient(#eedd99, #000000);
     overflow: hidden;
@@ -144,12 +144,13 @@ input[type="checkbox"]:checked {
     bottom: 0;
     left: 200px;
     margin: auto;
-    width: 200px;
+    width: fit-content;
     height: fit-content;
     vertical-align: middle;
     text-align: center;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, auto));
+    font-size: 60px;
 }
 
 .iter p {
@@ -170,4 +171,5 @@ input[type="checkbox"]:checked {
     height: fit-content;
     text-align: center;
     color: white;
+    font-size: 60px;
 }
