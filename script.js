@@ -3,11 +3,14 @@ const length = document.getElementById("length");
 const except = document.getElementById("except");
 const count = document.getElementById("count");
 const run = document.getElementById("run");
+const save = document.getElementById("save");
 const container = document.getElementById("container");
 const wish = document.getElementById("wish");
 const chang = document.getElementById("chang");
 const animation = document.getElementById("animation");
 const bgs = document.getElementById("bgs");
+
+let teamsObj = null;
 
 run.addEventListener("click", () => {
     if (animation.checked) {
@@ -30,7 +33,7 @@ wish.addEventListener("ended", () => {
     });
 });
 
-function roll() {
+const roll = () => {
     return new Promise(resolve => {
         const array = new Array();
         const exceptions = except.value.split(" ").map(v => +v).filter(v => typeof (v) == "number");
@@ -83,7 +86,7 @@ window.onmousedown = () => {
     }
 };
 
-function iterate() {
+const iterate = () => {
     if (previousTeam) {
         previousTeam.remove();
     }
@@ -122,7 +125,7 @@ function iterate() {
     }
 }
 
-function work(teams) {
+const work = (teams) => {
     container.innerHTML = "";
     for (let i = 0; i < teams.length; i++) {
         const element = document.createElement("div");
@@ -144,5 +147,30 @@ function work(teams) {
     }
     if (animation.checked) {
         chang.play();
+    }
+    teamsObj = teams;
+}
+
+save.onclick = () => {
+    if (teamsObj) {
+        let content = "";
+        for (let i = 0; i < teamsObj.length; i++) {
+            content = content.concat("Team #" + (i + 1) + ": ")
+            for (let j = 0; j < teamsObj[i].length; j++) {
+                if (j) {
+                    content = content.concat(", " + teamsObj[i][j]);
+                }
+                else {
+                    content = content.concat(teamsObj[i][j]);
+                }
+            }
+            content = content.concat("\n");
+        }
+        content = content.trim();
+        const blob = new Blob([content], { type: 'text/plain' });
+        const anchor = document.createElement("a");
+        anchor.download = "teams.txt";
+        anchor.href = URL.createObjectURL(blob);
+        anchor.click();
     }
 }

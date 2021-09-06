@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko-KR">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <title>Team Up</title>
 </head>
-
 <body>
     <div id="control">
         <input type="number" id="start" value="1"> 번부터
@@ -16,17 +14,15 @@
         <input type="text" id="except"> 얘네들 빼고
         <input type="number" id="count" value="6"> 개 팀에 배치합니다.
         <input type="button" id="run" value="배치">
+        <input type="button" id="save" value="저장">
         <br>
         <label><input type="checkbox" id="animation"> 애니메이션 실행</label>
     </div>
-    <div id="container">
-    </div>
+    <div id="container"></div>
     <video id="wish" src="wish.mp4" preload="auto" hidden></video>
     <audio id="chang" src="chang.ogg" preload="auto" hidden></audio>
     <div id="bgs" hidden></div>
-
     <div style="position: fixed; right: 0; bottom: 0; opacity: 50%; font-size: 50px; color: white;">Rokr0k &copy; 2021</div>
     <script src="script.js"></script>
 </body>
-
 </html>
