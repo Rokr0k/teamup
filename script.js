@@ -100,10 +100,12 @@ const iterate = () => {
         previousTeam = document.createElement("div");
         previousTeam.setAttribute("class", "iter");
         previousTeam.setAttribute("style", "animation-name: show; animation-duration: 1.4s;");
+        const grid = document.createElement("div");
+        previousTeam.appendChild(grid);
         for (let i = 0; i < tee[ii].length; i++) {
-            var child = document.createElement("p");
+            const child = document.createElement("p");
             child.innerHTML = tee[ii][i];
-            previousTeam.appendChild(child);
+            grid.appendChild(child);
         }
         bgs.appendChild(previousTeam);
         previousIndex = document.createElement("div");

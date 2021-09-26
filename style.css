@@ -129,8 +129,6 @@ input[type="checkbox"]:checked {
     right: 0;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     object-fit: fill;
     font-weight: 700;
     background: radial-gradient(#eedd99, #000000);
@@ -139,22 +137,26 @@ input[type="checkbox"]:checked {
 
 .iter {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 0;
     right: 0;
     bottom: 0;
     left: 200px;
+    font-size: 60px;
+}
+.iter div {
     margin: auto;
+    display: grid;
     width: fit-content;
     height: fit-content;
-    vertical-align: middle;
-    text-align: center;
-    display: grid;
     grid-template-columns: repeat(2, minmax(0, auto));
     font-size: 60px;
 }
-
-.iter p {
+.iter div p {
     margin: 10px;
+    text-align: center;
     background: #dcaa55;
     border-radius: 10px;
     padding: 5px;
