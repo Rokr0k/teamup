@@ -2,7 +2,7 @@
     0% {
         background: #424242;
     }
-    50% {
+    40%, 60% {
         background: #ffffff;
     }
     100% {
@@ -14,7 +14,7 @@
     0% {
         filter: contrast(0) brightness(0);
     }
-    50% {
+    40%, 60% {
         filter: contrast(0) brightness(10);
     }
     100% {
