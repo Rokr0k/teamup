@@ -83,24 +83,6 @@ input[type="checkbox"]:checked {
     padding: 5px;
 }
 
-@keyframes show {
-    0% {
-        opacity: 0;
-        transform: translateX(-100px) scale(5);
-        filter: brightness(0) saturate(0);
-    }
-    20%, 80% {
-        opacity: 1;
-        transform: translateX(-100px) scale(1);
-        filter: brightness(0) saturate(0);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-        filter: brightness(1) saturate(1);
-    }
-}
-
 @keyframes appear {
     0% {
         opacity: 0;
@@ -110,68 +92,4 @@ input[type="checkbox"]:checked {
         opacity: 1;
         transform: translateX(0);
     }
-}
-
-#wish {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-}
-
-#bgs {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    object-fit: fill;
-    font-weight: 700;
-    background: radial-gradient(#eedd99, #000000);
-    overflow: hidden;
-}
-
-.iter {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 200px;
-    font-size: 60px;
-}
-.iter div {
-    margin: auto;
-    display: grid;
-    width: fit-content;
-    height: fit-content;
-    grid-template-columns: repeat(2, minmax(0, auto));
-    font-size: 60px;
-}
-.iter div p {
-    margin: 10px;
-    text-align: center;
-    background: #dcaa55;
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.indx {
-    position: absolute;
-    top: 0;
-    right: 25%;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    width: fit-content;
-    height: fit-content;
-    text-align: center;
-    color: white;
-    font-size: 60px;
 }
