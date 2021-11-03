@@ -1,13 +1,6 @@
 const genshin_wish = document.getElementById("genshin-wish");
 const genshin_chang = document.getElementById("genshin-chang");
-const animation = document.getElementById("animation");
 const genshin_bgs = document.getElementById("genshin-bgs");
-
-let tee = null;
-let ii = 0;
-let previousTeam = null;
-let previousIndex = null;
-let previousTimeout = 0;
 
 window.addEventListener("keydown", e => {
     if (genshin_bgs.getAttribute("hidden") === null && e.code === "Enter") {

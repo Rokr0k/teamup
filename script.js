@@ -5,14 +5,29 @@ const count = document.getElementById("count");
 const run = document.getElementById("run");
 const save = document.getElementById("save");
 const container = document.getElementById("container");
+const animation = document.getElementById("animation");
 
 let teamsObj = null;
+
+let tee = null;
+let ii = 0;
+let previousTeam = null;
+let previousIndex = null;
+let previousTimeout = 0;
 
 run.addEventListener("click", () => {
     if (animation.checked) {
         run.disabled = true;
-        genshin_wish.removeAttribute("hidden");
-        genshin_wish.play();
+        switch (Math.floor(Math.random() * 2)) {
+            case 0:
+                genshin_wish.removeAttribute("hidden");
+                genshin_wish.play();
+                break;
+            case 1:
+                mingrifangzhou_gacha.removeAttribute("hidden");
+                mingrifangzhou_gacha.play();
+                break;
+        }
     }
     else {
         roll().then(teams => work(teams));
@@ -72,9 +87,6 @@ const work = (teams) => {
             }, i * 100 + 500, element);
         }
         container.appendChild(element);
-    }
-    if (animation.checked) {
-        genshin_chang.play();
     }
     teamsObj = teams;
 }

@@ -1,0 +1,72 @@
+@keyframes mingrifangzhou-show {
+    0% {
+        background: #424242;
+    }
+    50% {
+        background: #ffffff;
+    }
+    100% {
+        background: #424242;
+    }
+}
+
+@keyframes mingrifangzhou-child {
+    0% {
+        filter: contrast(0) brightness(0);
+    }
+    50% {
+        filter: contrast(0) brightness(10);
+    }
+    100% {
+        filter: contrast(1) brightness(1);
+    }
+}
+
+#mingrifangzhou-gacha {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+#mingrifangzhou-bgs {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    object-fit: fill;
+    font-weight: 700;
+    background: #424242;
+    overflow: hidden;
+}
+
+.mingrifangzhou-iter {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.mingrifangzhou-iter div {
+    margin: auto;
+    display: grid;
+    width: fit-content;
+    height: fit-content;
+    grid-template-columns: repeat(2, minmax(0, auto));
+    font-size: 60px;
+}
+.mingrifangzhou-iter div p {
+    margin: 10px;
+    text-align: center;
+    background: #dcaa55;
+    border-radius: 10px;
+    padding: 5px;
+}
