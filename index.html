@@ -5,34 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="genshin/style.css">
-    <link rel="stylesheet" href="mingrifangzhou/style.css">
     <title>Team Up</title>
 </head>
 <body>
     <div id="control">
-        <input type="number" id="start" value="1"> 번부터
-        <input type="number" id="length" value="34"> 명 중에
-        <input type="text" id="except"> 얘네들 빼고
-        <input type="number" id="count" value="6"> 개 팀에 배치합니다.
-        <input type="button" id="run" value="배치">
-        <input type="button" id="save" value="저장">
+        <input type="number" class="input" id="length" value="30"> 명 중에
+        <input type="text" class="input" style="width: 200px;" id="except"> 얘네들 빼고
+        <input type="number" class="input" id="count" value="6"> 개 팀에 배치합니다.
+        <input type="button" class="input button" id="run" value="배치">
         <br>
-        <label><input type="checkbox" id="animation"> 애니메이션 실행</label>
+        <input type="button" class="input button" id="update" value="점수 반영">
+        <div class="input tooltip">점수 현황 보기
+            <div>
+                <table id="score-table">
+                    <thead>
+                        <th>이름</th>
+                        <th>점수</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <label class="input button">불러오기<input type="file" id="members" accept="text/csv"></label>
+        <input type="button" class="input button" id="save" value="저장">
     </div>
     <div id="container"></div>
 
-    <video id="genshin-wish" src="genshin/wish.mp4" preload="auto" hidden></video>
-    <audio id="genshin-chang" src="genshin/chang.ogg" preload="auto" hidden></audio>
-    <div id="genshin-bgs" hidden></div>
-
-    <video id="mingrifangzhou-gacha" src="mingrifangzhou/gacha.mp4" preload="auto" hidden></video>
-    <audio id="mingrifangzhou-shaaaa" src="mingrifangzhou/shaaaa.ogg" preload="auto" hidden></audio>
-    <div id="mingrifangzhou-bgs" hidden></div>
-
-    <div style="position: fixed; right: 0; bottom: 0; opacity: 50%; font-size: 50px; color: white;">Rokr0k &copy; 2021</div>
+    <a href="https://github.com/Rokr0k/teamup" style="position: fixed; right: 0; bottom: 0; opacity: 50%; font-size: 50px; color: white; text-decoration: none;">Rokr0k &copy; 2021</a>
     <script src="script.js"></script>
-    <script src="genshin/script.js"></script>
-    <script src="mingrifangzhou/script.js"></script>
 </body>
 </html>

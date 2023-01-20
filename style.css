@@ -17,51 +17,55 @@ body {
     vertical-align: middle;
 }
 
-input {
+.input {
     background: transparent;
     border: 5px #000000 solid;
     border-radius: 20px;
     vertical-align: middle;
-}
-
-input[type="number"] {
     width: 60px;
     font-size: inherit;
+    font-weight: inherit;
     padding: 5px 10px 5px 10px;
 }
 
-input[type="text"] {
-    width: 200px;
-    font-size: inherit;
-    padding: 5px 10px 5px 10px;
-}
-
-input[type="button"] {
-    width: 100px;
-    font-size: inherit;
+.input.button {
+    width: fit-content;
     border: 5px #ffffff solid;
-    padding: 5px 10px 5px 10px;
 }
 
-input[type="checkbox"] {
-    appearance: none;
-    width: 30px;
-    height: 30px;
-    border: 5px #ffffff solid;
-    border-radius: 15px;
-    background: transparent;
+input[type="file"] {
+    display: none;
 }
-input[type="checkbox"]:checked {
-    background: #fe9898;
+
+.tooltip {
+    width: fit-content;
+    border: 5px #7f7f7f solid;
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip>div {
+    visibility: hidden;
+    max-height: 700px;
+    background: black;
+    color: white;
+    position: absolute;
+    z-index: 1;
+    overflow-y: scroll;
+}
+
+.tooltip:hover>div {
+    visibility: visible;
 }
 
 #container {
-    display: grid;
+    display: flex;
     width: 100%;
     height: auto;
     font-size: 40px;
     font-weight: 700;
-    grid-template-columns: repeat(6, minmax(0, auto));
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .item {
@@ -71,16 +75,30 @@ input[type="checkbox"]:checked {
     text-align: center;
     margin: 10px;
     padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, auto));
-    overflow-x: none;
+    max-width: 500px;
 }
 
-.item p {
+.item>.members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.item>.members>p {
     margin: 10px;
     background: #dcaa55;
     border-radius: 10px;
     padding: 5px;
+    word-break: keep-all;
+}
+
+.item>.score-controls {
+    font-size: 30px;
+}
+
+.item>.score-display {
+    color: #83230b;
+    word-break: break-all;
 }
 
 @keyframes appear {
@@ -88,6 +106,7 @@ input[type="checkbox"]:checked {
         opacity: 0;
         transform: translateX(-100px);
     }
+
     100% {
         opacity: 1;
         transform: translateX(0);
