@@ -139,6 +139,11 @@ membersInput.addEventListener('change', () => {
             }
         });
         reader.readAsArrayBuffer(file);
+    } else {
+        updateMembers();
+        if (teams) {
+            updateTeams();
+        }
     }
 });
 
@@ -177,5 +182,11 @@ iconInput.addEventListener('change', () => {
             }
         });
         reader.readAsDataURL(file);
+    } else {
+        icon = '&#10026;';
+        localStorage.removeItem('icon');
+        if (teams) {
+            updateTeams();
+        }
     }
 });
