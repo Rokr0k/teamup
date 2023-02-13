@@ -130,7 +130,7 @@ membersInput.addEventListener('change', () => {
     if (file) {
         const reader = new FileReader();
         reader.addEventListener('load', () => {
-            const data = reader.result.split(/\r?\n/g).map(line => line.split(/[,;\t]/g).map(a => a.trim())).filter(data => data[0].length > 0).map(data => ({ name: data[0], score: +data[1] || 0 }));
+            const data = new TextDecoder('euc-kr').decode(reader.result).split(/\r?\n/g).map(line => line.split(/[,;\t]/g).map(a => a.trim())).filter(data => data[0].length > 0).map(data => ({ name: data[0], score: +data[1] || 0 }));
             lengthInput.value = data.length;
             data.forEach((data, i) => membersData[i + 1] = data);
             updateMembers();
@@ -138,12 +138,13 @@ membersInput.addEventListener('change', () => {
                 updateTeams();
             }
         });
-        reader.readAsText(file);
+        reader.readAsArrayBuffer(file);
     }
 });
 
 saveInput.addEventListener('click', () => {
     const content = Object.values(membersData).map(member => `${member.name},${member.score}`).join('\r\n');
+    const blob = new Blob([new TextEncoder('euc-kr', { NONSTANDARD_allowLegacyEncoding: true }).encode(content)], { type: 'text/csv' });
     if (showSaveFilePicker) {
         showSaveFilePicker({
             excludeAcceptAllOption: true,
@@ -154,9 +155,8 @@ saveInput.addEventListener('click', () => {
                     accept: { 'text/csv': ['.csv'] }
                 }
             ]
-        }).then(handler => handler.createWritable()).then(writable => writable.write(content).then(() => writable.close())).catch(() => { });
+        }).then(handler => handler.createWritable()).then(writable => writable.write(blob).then(() => writable.close())).catch(() => { });
     } else {
-        const blob = new Blob([content], { type: 'text/csv' });
         const anchor = document.createElement('a');
         anchor.download = prompt('파일 이름') || 'members.csv';
         anchor.href = URL.createObjectURL(blob);
