@@ -21,7 +21,6 @@ body {
     background: transparent;
     border: 5px #000000 solid;
     border-radius: 20px;
-    vertical-align: middle;
     width: 60px;
     font-size: inherit;
     font-weight: inherit;
@@ -94,6 +93,14 @@ input[type="file"] {
 
 .item>.score-controls {
     font-size: 30px;
+}
+
+.item>.score-controls>.team-id {
+    margin: 10px;
+    display: inline;
+    color: #9c935a;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 .item>.score-display {

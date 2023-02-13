@@ -80,6 +80,9 @@ function updateTeams() {
 
         const controls = document.createElement('div');
         controls.classList.add('score-controls');
+        const teamid = document.createElement('div');
+        teamid.classList.add('team-id');
+        teamid.innerHTML = number + 1;
         const scoreUp = document.createElement('button');
         scoreUp.classList.add('input', 'button');
         scoreUp.innerHTML = '&#65291;';
@@ -96,6 +99,7 @@ function updateTeams() {
                 updateTeams(teams);
             }
         });
+        controls.appendChild(teamid);
         controls.appendChild(scoreUp);
         controls.appendChild(scoreDown);
         element.appendChild(controls);
