@@ -65,7 +65,7 @@ function roll() {
  */
 function updateTeams() {
     containerElement.innerHTML = '';
-    teams.forEach(team => {
+    teams.forEach((team, number) => {
         const element = document.createElement('div');
         element.classList.add('item');
 
@@ -118,7 +118,7 @@ function updateTeams() {
  * Update members display
  */
 function updateMembers() {
-    tableElement.innerHTML = Object.values(membersData).map(member => `<tr><td>${member.name}</td><td>${member.score}</td></tr>`).join('');
+    tableElement.innerHTML = Object.values(membersData).map((member, number) => `<tr><td>${number + 1}</td><td>${member.name}</td><td>${member.score}</td></tr>`).join('');
 }
 
 membersInput.addEventListener('change', () => {
