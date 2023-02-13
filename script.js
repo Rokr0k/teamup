@@ -8,8 +8,9 @@ const exceptInput = document.querySelector('#except');
 const countInput = document.querySelector('#count');
 const runInput = document.querySelector('#run');
 const updateInput = document.querySelector('#update');
-const saveInput = document.querySelector('#save');
 const membersInput = document.querySelector('#members');
+const saveInput = document.querySelector('#save');
+const iconInput = document.querySelector('#icon');
 const tableElement = document.querySelector('#score-table tbody');
 const containerElement = document.querySelector('#container');
 
@@ -17,6 +18,8 @@ const containerElement = document.querySelector('#container');
 const membersData = {};
 /** @type {Team[]?} */
 let teams = null;
+
+let icon = localStorage.getItem('icon') ?? '&#10026;';
 
 runInput.addEventListener('click', () => roll());
 
@@ -106,7 +109,7 @@ function updateTeams() {
 
         const score = document.createElement('div');
         score.classList.add('score-display');
-        score.innerHTML = new Array(team.score).fill('&#10026;').join('');
+        score.innerHTML = new Array(team.score).fill(icon).join('');
         element.appendChild(score);
 
         containerElement.appendChild(element);
@@ -159,5 +162,20 @@ saveInput.addEventListener('click', () => {
         anchor.href = URL.createObjectURL(blob);
         anchor.click();
         URL.revokeObjectURL(anchor.href);
+    }
+});
+
+iconInput.addEventListener('change', () => {
+    const file = iconInput.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            icon = `<img src="${reader.result}">`;
+            localStorage.setItem('icon', icon);
+            if (teams) {
+                updateTeams();
+            }
+        });
+        reader.readAsDataURL(file);
     }
 });

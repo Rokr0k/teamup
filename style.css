@@ -107,6 +107,12 @@ input[type="file"] {
 .item>.score-display {
     color: #83230b;
     word-break: break-all;
+    margin: 10px;
+}
+
+.item>.score-display>img {
+    width: 40px;
+    height: 40px;
 }
 
 @keyframes appear {
