@@ -35,7 +35,7 @@ updateInput.addEventListener('click', () => {
     }
 
     const maxTeams = [...teams.keys()].filter(team => teams[team].score >= maxScore);
-    if (confirm(`${maxTeams.map(team => team + 1).join(', ')} 팀에 1점 증가`)) {
+    if (confirm(`${maxTeams.map(team => `${team + 1}팀`).join(', ')}에 1점 증가`)) {
         maxTeams.map(team => teams[team].members).reduce((members, member) => [...members, ...member], []).forEach(member => {
             if (membersData[member]) {
                 membersData[member].score++;
