@@ -8,8 +8,9 @@ const exceptInput = document.querySelector('#except');
 const countInput = document.querySelector('#count');
 const runInput = document.querySelector('#run');
 const updateInput = document.querySelector('#update');
-const saveInput = document.querySelector('#save');
 const membersInput = document.querySelector('#members');
+const saveInput = document.querySelector('#save');
+const iconInput = document.querySelector('#icon');
 const tableElement = document.querySelector('#score-table tbody');
 const containerElement = document.querySelector('#container');
 
@@ -17,6 +18,8 @@ const containerElement = document.querySelector('#container');
 const membersData = {};
 /** @type {Team[]?} */
 let teams = null;
+
+let icon = localStorage.getItem('icon') ?? '&#10026;';
 
 runInput.addEventListener('click', () => roll());
 
@@ -32,7 +35,7 @@ updateInput.addEventListener('click', () => {
     }
 
     const maxTeams = [...teams.keys()].filter(team => teams[team].score >= maxScore);
-    if (confirm(`${maxTeams.map(team => team + 1).join(', ')} 팀에 1점 증가`)) {
+    if (confirm(`${maxTeams.map(team => `${team + 1}팀`).join(', ')}에 1점 증가`)) {
         maxTeams.map(team => teams[team].members).reduce((members, member) => [...members, ...member], []).forEach(member => {
             if (membersData[member]) {
                 membersData[member].score++;
@@ -65,7 +68,7 @@ function roll() {
  */
 function updateTeams() {
     containerElement.innerHTML = '';
-    teams.forEach(team => {
+    teams.forEach((team, number) => {
         const element = document.createElement('div');
         element.classList.add('item');
 
@@ -80,6 +83,9 @@ function updateTeams() {
 
         const controls = document.createElement('div');
         controls.classList.add('score-controls');
+        const teamid = document.createElement('div');
+        teamid.classList.add('team-id');
+        teamid.innerHTML = number + 1;
         const scoreUp = document.createElement('button');
         scoreUp.classList.add('input', 'button');
         scoreUp.innerHTML = '&#65291;';
@@ -96,13 +102,14 @@ function updateTeams() {
                 updateTeams(teams);
             }
         });
+        controls.appendChild(teamid);
         controls.appendChild(scoreUp);
         controls.appendChild(scoreDown);
         element.appendChild(controls);
 
         const score = document.createElement('div');
         score.classList.add('score-display');
-        score.innerHTML = new Array(team.score).fill('&#10026;').join('');
+        score.innerHTML = new Array(team.score).fill(icon).join('');
         element.appendChild(score);
 
         containerElement.appendChild(element);
@@ -114,7 +121,7 @@ function updateTeams() {
  * Update members display
  */
 function updateMembers() {
-    tableElement.innerHTML = Object.values(membersData).map(member => `<tr><td>${member.name}</td><td>${member.score}</td></tr>`).join('');
+    tableElement.innerHTML = Object.values(membersData).map((member, number) => `<tr><td>${number + 1}</td><td>${member.name}</td><td>${member.score}</td></tr>`).join('');
 }
 
 membersInput.addEventListener('change', () => {
@@ -123,7 +130,7 @@ membersInput.addEventListener('change', () => {
     if (file) {
         const reader = new FileReader();
         reader.addEventListener('load', () => {
-            const data = reader.result.split(/\r?\n/g).map(line => line.split(/[,;\t]/g).map(a => a.trim())).filter(data => data[0].length > 0).map(data => ({ name: data[0], score: +data[1] || 0 }));
+            const data = new TextDecoder('euc-kr').decode(reader.result).split(/\r?\n/g).map(line => line.split(/[,;\t]/g).map(a => a.trim())).filter(data => data[0].length > 0).map(data => ({ name: data[0], score: +data[1] || 0 }));
             lengthInput.value = data.length;
             data.forEach((data, i) => membersData[i + 1] = data);
             updateMembers();
@@ -131,12 +138,18 @@ membersInput.addEventListener('change', () => {
                 updateTeams();
             }
         });
-        reader.readAsText(file);
+        reader.readAsArrayBuffer(file);
+    } else {
+        updateMembers();
+        if (teams) {
+            updateTeams();
+        }
     }
 });
 
 saveInput.addEventListener('click', () => {
     const content = Object.values(membersData).map(member => `${member.name},${member.score}`).join('\r\n');
+    const blob = new Blob([new TextEncoder('euc-kr', { NONSTANDARD_allowLegacyEncoding: true }).encode(content)], { type: 'text/csv' });
     if (showSaveFilePicker) {
         showSaveFilePicker({
             excludeAcceptAllOption: true,
@@ -147,13 +160,33 @@ saveInput.addEventListener('click', () => {
                     accept: { 'text/csv': ['.csv'] }
                 }
             ]
-        }).then(handler => handler.createWritable()).then(writable => writable.write(content).then(() => writable.close())).catch(() => { });
+        }).then(handler => handler.createWritable()).then(writable => writable.write(blob).then(() => writable.close())).catch(() => { });
     } else {
-        const blob = new Blob([content], { type: 'text/csv' });
         const anchor = document.createElement('a');
         anchor.download = prompt('파일 이름') || 'members.csv';
         anchor.href = URL.createObjectURL(blob);
         anchor.click();
         URL.revokeObjectURL(anchor.href);
+    }
+});
+
+iconInput.addEventListener('change', () => {
+    const file = iconInput.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            icon = `<img src="${reader.result}">`;
+            localStorage.setItem('icon', icon);
+            if (teams) {
+                updateTeams();
+            }
+        });
+        reader.readAsDataURL(file);
+    } else {
+        icon = '&#10026;';
+        localStorage.removeItem('icon');
+        if (teams) {
+            updateTeams();
+        }
     }
 });
