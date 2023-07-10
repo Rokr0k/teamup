@@ -15,9 +15,10 @@
     width: 6rem;
     font-size: inherit;
     font-weight: inherit;
+    font-family: inherit;
     padding: 0.5rem 1rem;
 
-    &[type='file'] {
+    &[type="file"] {
       display: none;
     }
   }
@@ -39,7 +40,7 @@
       word-break: keep-all;
     }
 
-    &:hover>div {
+    &:hover > div {
       visibility: visible;
     }
   }
