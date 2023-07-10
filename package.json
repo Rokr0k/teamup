@@ -17,6 +17,7 @@
     "@babel/preset-env": "^7.22.7",
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
+    "@fontsource/nanum-gothic": "^5.0.5",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@types/wicg-file-system-access": "^2020.9.6",

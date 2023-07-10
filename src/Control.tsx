@@ -93,9 +93,11 @@ const Control = forwardRef(({
         <div>
           <table>
             <thead>
-              <th>번호</th>
-              <th>이름</th>
-              <th>점수</th>
+              <tr>
+                <th>번호</th>
+                <th>이름</th>
+                <th>점수</th>
+              </tr>
             </thead>
             <tbody>
               {Object.keys(members).map(id => (
