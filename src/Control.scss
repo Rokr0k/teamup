@@ -1,0 +1,53 @@
+.control {
+  font-size: 3rem;
+  border-radius: 5rem;
+  margin: 1rem;
+  padding: 1rem;
+  background: #efdf88;
+  text-align: center;
+  vertical-align: middle;
+
+  input,
+  .input {
+    background: transparent;
+    border: 0.5rem #000000 solid;
+    border-radius: 2rem;
+    width: 6rem;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 0.5rem 1rem;
+
+    &[type='file'] {
+      display: none;
+    }
+  }
+
+  .score-list {
+    width: fit-content;
+    border: 0.5rem #7f7f7f solid;
+    position: relative;
+    display: inline-block;
+
+    div {
+      visibility: hidden;
+      max-height: 70rem;
+      background: black;
+      color: white;
+      position: absolute;
+      z-index: 1;
+      overflow-y: scroll;
+      word-break: keep-all;
+    }
+
+    &:hover>div {
+      visibility: visible;
+    }
+  }
+
+  button,
+  .button {
+    @extend input;
+    width: fit-content;
+    border: 0.5rem #ffffff solid;
+  }
+}

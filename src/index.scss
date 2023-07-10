@@ -1,0 +1,17 @@
+:root {
+  margin: 0;
+  padding: 1rem;
+  background: #ccbb33;
+  font-size: 10px;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+.watermark {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  opacity: 50%;
+  font-size: 50px;
+  color: white;
+  text-decoration: none;
+}

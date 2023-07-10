@@ -1,0 +1,69 @@
+.teams {
+  display: flex;
+  width: 100%;
+  height: auto;
+  font-size: 4rem;
+  font-weight: 700;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  .team {
+    background: #efdf88;
+    border-radius: 2rem;
+    vertical-align: middle;
+    text-align: center;
+    margin: 1rem;
+    padding: 1rem;
+    max-width: 50rem;
+
+    .members {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+
+      .member {
+        margin: 1rem;
+        background: #dcaa55;
+        border-radius: 1rem;
+        padding: 0.5rem;
+        word-break: keep-all;
+      }
+    }
+
+    .score {
+      .score-control {
+        font-size: 3rem;
+
+        .team-id {
+          margin: 1rem;
+          display: inline;
+          color: #9c935a;
+          font-size: 4rem;
+          font-weight: bold;
+        }
+
+        button {
+          background: transparent;
+          border: 0.5rem #ffffff solid;
+          border-radius: 2rem;
+          width: fit-content;
+          font-size: inherit;
+          font-weight: inherit;
+          padding: 0.5rem 1rem;
+        }
+      }
+
+
+      .score-display {
+        color: #83230b;
+        word-break: break-all;
+        margin: 1rem;
+
+        img {
+          width: 4rem;
+          height: 4rem;
+        }
+      }
+    }
+  }
+}
