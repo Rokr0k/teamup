@@ -1,6 +1,6 @@
 {
   "name": "teamup",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Make teams",
   "index": "./dist/index.js",
   "private": "true",
