@@ -16,15 +16,15 @@ function App(): ReactElement {
   const [latest, setLatest] = useState<string>(VERSION)
 
   useEffect(() => {
-    type Manifest = {
+    interface Manifest {
       version: string
     }
     fetch(new URL('./manifest.json', HOMEPAGE).href)
-      .then((res) => {
+      .then(async (res) => {
         if (!res.ok) {
           throw new Error()
         } else {
-          return res.json()
+          return await res.json()
         }
       })
       .then((latest: Manifest) => {
