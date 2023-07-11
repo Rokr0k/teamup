@@ -24,7 +24,7 @@
     "type": "git",
     "url": "https://github.com/Rokr0k/teamup.git"
   },
-  "homepage": "https://rokr0k.xyz/teamup",
+  "homepage": "https://rokr0k.xyz/teamup/",
   "author": "Rokr0k",
   "license": "MIT",
   "devDependencies": {
