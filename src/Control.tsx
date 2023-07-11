@@ -8,8 +8,7 @@ import React, {
 } from "react";
 import "./Control.scss";
 import { TeamsRef } from "./Teams";
-import { decode, encode } from "iconv-lite";
-import { Buffer } from "buffer/";
+import { Members, load, save } from "./loadnsave";
 
 export type ControlRef = {
   names: {
@@ -31,12 +30,7 @@ const Control = forwardRef(
     const [count, setCount] = useState<number>(6);
     const [except, setExcept] = useState<string>("");
 
-    const [members, setMembers] = useState<{
-      [id: number]: {
-        name: string;
-        score: number;
-      };
-    }>({});
+    const [members, setMembers] = useState<Members>({});
 
     const [icon, setIcon] = useState<{
       type: "text" | "image";
@@ -127,12 +121,7 @@ const Control = forwardRef(
                   .join(", ")}에 1점 증가`
               )
             ) {
-              const newMembers: {
-                [id: number]: {
-                  name: string;
-                  score: number;
-                };
-              } = JSON.parse(JSON.stringify(members));
+              const newMembers: Members = JSON.parse(JSON.stringify(members));
               teams.current.bestMembers.forEach((member) => {
                 if (newMembers[member]) {
                   newMembers[member].score++;
@@ -177,22 +166,10 @@ const Control = forwardRef(
                 const reader = new FileReader();
                 reader.addEventListener("load", () => {
                   if (reader.result instanceof ArrayBuffer) {
-                    const data = decode(
-                      Buffer.from(new Uint8Array(reader.result)),
-                      "euc-kr"
-                    )
-                      .split(/\r?\n/g)
-                      .map((line) => line.split(/[,;\t]/g).map((a) => a.trim()))
-                      .filter((data) => data[0].length > 0)
-                      .map((data) => ({ name: data[0], score: +data[1] || 0 }));
-                    setLength(data.length);
-                    const newMembers: {
-                      [id: number]: {
-                        name: string;
-                        score: number;
-                      };
-                    } = {};
-                    data.forEach((data, i) => (newMembers[i + 1] = data));
+                    const newMembers = load(reader.result);
+                    setLength(
+                      Math.max(...Object.keys(newMembers).map((k) => +k))
+                    );
                     setMembers(newMembers);
                   }
                 });
@@ -206,13 +183,8 @@ const Control = forwardRef(
         <button
           type="button"
           onClick={() => {
-            const content = Object.entries(members)
-              .reduce<string[]>((members, [id, { name, score }]) => {
-                members[+id] = `${name},${score}`;
-                return members;
-              }, [])
-              .join("\r\n");
-            const blob = new Blob([encode(content, "euc-kr")], {
+            const content = save(members);
+            const blob = new Blob([content], {
               type: "text/csv",
             });
             if (window.showSaveFilePicker != undefined) {
