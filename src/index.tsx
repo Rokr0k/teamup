@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import { lazy } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.scss'
 

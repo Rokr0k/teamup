@@ -1,4 +1,4 @@
-import React, { type ReactElement, createRef, lazy } from 'react'
+import { type ReactElement, createRef, lazy } from 'react'
 import { type ControlRef } from './Control'
 import { type TeamsRef } from './Teams'
 

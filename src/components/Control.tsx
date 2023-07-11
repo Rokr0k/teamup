@@ -1,4 +1,4 @@
-import React, {
+import {
   type ForwardedRef,
   type ReactNode,
   type RefObject,
@@ -57,7 +57,9 @@ const Control = forwardRef(
             case 'text':
               return icon.value
             case 'image':
-              return <img src={icon.value} />
+              return <img src={icon.value} alt="&#10026;" />
+            default:
+              return String.fromCharCode(10026)
           }
         },
       }
