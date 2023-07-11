@@ -41,7 +41,7 @@ module.exports = {
       patterns: [
         { from: 'public' },
         {
-          from: 'src/manifest.js',
+          from: 'manifest.js',
           to: 'manifest.json',
           transform: (_, path) => JSON.stringify(require(path)),
         },
