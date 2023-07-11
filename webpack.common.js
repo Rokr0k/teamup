@@ -3,10 +3,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    teamup: "./src/index.tsx",
+    teamup: "./src/index",
   },
   output: {
     filename: "[name].bundle.js",
+    chunkFilename: "[name].chunk.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
@@ -14,7 +15,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
     fallback: {
-      buffer: require.resolve("buffer/"),
+      buffer: false,
     },
   },
   module: {

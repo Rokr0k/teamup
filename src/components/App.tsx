@@ -1,6 +1,9 @@
-import React, { createRef } from "react";
-import Control, { ControlRef } from "./Control";
-import Teams, { TeamsRef } from "./Teams";
+import React, { createRef, lazy } from "react";
+import { ControlRef } from "./Control";
+import { TeamsRef } from "./Teams";
+
+const Control = lazy(() => import("./Control"));
+const Teams = lazy(() => import("./Teams"));
 
 function App() {
   const teamsRef = createRef<TeamsRef>();

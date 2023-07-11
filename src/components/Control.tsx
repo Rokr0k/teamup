@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import "./Control.scss";
 import { TeamsRef } from "./Teams";
-import { Members, load, save } from "./loadnsave";
+import { Members } from "../utils/loadnsave";
 
 export type ControlRef = {
   names: {
@@ -72,7 +72,7 @@ const Control = forwardRef(
           value={length}
           onChange={(e) => setLength(+e.target.value)}
         />{" "}
-        명 중에
+        명 중에{" "}
         <input
           type="text"
           style={{
@@ -81,13 +81,13 @@ const Control = forwardRef(
           value={except}
           onChange={(e) => setExcept(e.target.value)}
         />{" "}
-        얘네 빼고
+        얘네 빼고{" "}
         <input
           type="number"
           value={count}
           onChange={(e) => setCount(+e.target.value)}
         />{" "}
-        개 팀에 배치합니다.
+        개 팀에 배치합니다.{" "}
         <button
           type="button"
           onClick={() => {
@@ -165,13 +165,15 @@ const Control = forwardRef(
               if (file != undefined) {
                 const reader = new FileReader();
                 reader.addEventListener("load", () => {
-                  if (reader.result instanceof ArrayBuffer) {
-                    const newMembers = load(reader.result);
-                    setLength(
-                      Math.max(...Object.keys(newMembers).map((k) => +k))
-                    );
-                    setMembers(newMembers);
-                  }
+                  import("../utils/loadnsave").then(async ({ load }) => {
+                    if (reader.result instanceof ArrayBuffer) {
+                      const newMembers = await load(reader.result);
+                      setLength(
+                        Math.max(...Object.keys(newMembers).map((k) => +k))
+                      );
+                      setMembers(newMembers);
+                    }
+                  });
                 });
                 reader.readAsArrayBuffer(file);
               } else {
@@ -183,13 +185,13 @@ const Control = forwardRef(
         <button
           type="button"
           onClick={() => {
-            const content = save(members);
-            const blob = new Blob([content], {
-              type: "text/csv",
-            });
-            if (window.showSaveFilePicker != undefined) {
-              window
-                .showSaveFilePicker({
+            import("../utils/loadnsave").then(async ({ save }) => {
+              const content = await save(members);
+              const blob = new Blob([content], {
+                type: "text/csv",
+              });
+              if (showSaveFilePicker != undefined) {
+                showSaveFilePicker({
                   excludeAcceptAllOption: true,
                   suggestedName: "members.csv",
                   types: [
@@ -199,18 +201,19 @@ const Control = forwardRef(
                     },
                   ],
                 })
-                .then((handler) => handler.createWritable())
-                .then((writable) =>
-                  writable.write(blob).then(() => writable.close())
-                )
-                .catch(() => {});
-            } else {
-              const anchor = document.createElement("a");
-              anchor.download = prompt("파일 이름") || "members.csv";
-              anchor.href = URL.createObjectURL(blob);
-              anchor.click();
-              URL.revokeObjectURL(anchor.href);
-            }
+                  .then((handler) => handler.createWritable())
+                  .then((writable) =>
+                    writable.write(blob).then(() => writable.close())
+                  )
+                  .catch(() => {});
+              } else {
+                const anchor = document.createElement("a");
+                anchor.download = prompt("파일 이름") || "members.csv";
+                anchor.href = URL.createObjectURL(blob);
+                anchor.click();
+                URL.revokeObjectURL(anchor.href);
+              }
+            });
           }}
         >
           저장
