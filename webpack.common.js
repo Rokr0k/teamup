@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const { DefinePlugin } = require('webpack')
 
 module.exports = {
   entry: {
@@ -45,6 +46,10 @@ module.exports = {
           transform: (_, path) => JSON.stringify(require(path)),
         },
       ],
+    }),
+    new DefinePlugin({
+      VERSION: JSON.stringify(require('./package.json').version),
+      HOMEPAGE: JSON.stringify(require('./package.json').homepage),
     }),
   ],
 }

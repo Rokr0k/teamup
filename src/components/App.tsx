@@ -3,6 +3,9 @@ import './App.scss'
 import { type ControlRef } from './Control'
 import { type TeamsRef } from './Teams'
 
+declare const VERSION: string
+declare const HOMEPAGE: string
+
 const Control = lazy(async () => await import('./Control'))
 const Teams = lazy(async () => await import('./Teams'))
 
@@ -10,32 +13,27 @@ function App(): ReactElement {
   const teamsRef = createRef<TeamsRef>()
   const controlRef = createRef<ControlRef>()
 
-  const [update, setUpdate] = useState<boolean>(false)
+  const [latest, setLatest] = useState<string>(VERSION)
 
   useEffect(() => {
     type Manifest = {
       version: string
-      homepage: string
     }
-    fetch('/manifest.json')
-      .then((res) => res.json())
-      .then((current: Manifest) => {
-        fetch(new URL('./manifest.json', current.homepage).href)
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error()
-            } else {
-              return res.json()
-            }
-          })
-          .then((latest: Manifest) => {
-            if (current.version !== latest.version) {
-              setUpdate(true)
-            }
-          })
-          .catch(() => {
-            setUpdate(false)
-          })
+    fetch(new URL('./manifest.json', HOMEPAGE).href)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error()
+        } else {
+          return res.json()
+        }
+      })
+      .then((latest: Manifest) => {
+        if (VERSION !== latest.version) {
+          setLatest(latest.version)
+        }
+      })
+      .catch(() => {
+        setLatest(VERSION)
       })
   }, [])
 
@@ -43,9 +41,11 @@ function App(): ReactElement {
     <div>
       <Control ref={controlRef} teams={teamsRef} />
       <Teams ref={teamsRef} control={controlRef} />
-      {update && (
+      {VERSION === latest || (
         <a className="update" href="https://github.com/Rokr0k/teamup/releases">
-          업데이트 가능
+          업데이트 가능 ({VERSION}
+          {'\u2192'}
+          {latest})
         </a>
       )}
     </div>
