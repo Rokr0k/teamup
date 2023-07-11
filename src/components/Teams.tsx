@@ -1,99 +1,100 @@
 import React, {
-  ForwardedRef,
-  ReactNode,
-  RefObject,
+  type ForwardedRef,
+  type ReactNode,
+  type RefObject,
   forwardRef,
   useImperativeHandle,
   useReducer,
   useState,
-} from "react";
-import "./Teams.scss";
-import { ControlRef } from "./Control";
+  type ReactElement,
+} from 'react'
+import './Teams.scss'
+import { type ControlRef } from './Control'
 
-export type TeamsRef = {
-  roll: (length: number, count: number, excepts: number[]) => void;
-  bestScore: number;
-  bestTeams: number[];
-  bestMembers: number[];
-};
+export interface TeamsRef {
+  roll: (length: number, count: number, excepts: number[]) => void
+  bestScore: number
+  bestTeams: number[]
+  bestMembers: number[]
+}
 
 const Teams = forwardRef(
   (
     {
       control,
     }: {
-      control: RefObject<ControlRef>;
+      control: RefObject<ControlRef>
     },
     ref: ForwardedRef<TeamsRef>
   ) => {
-    const [teams, setTeams] = useState<number[][]>([]);
+    const [teams, setTeams] = useState<number[][]>([])
     const [scores, dispatchScores] = useReducer(
       (
         state: number[],
         action:
           | {
-              type: "increase" | "decrease";
-              i: number;
+              type: 'increase' | 'decrease'
+              i: number
             }
           | {
-              type: "reset";
-              size: number;
+              type: 'reset'
+              size: number
             }
       ) => {
-        const newScores = [...state];
+        const newScores = [...state]
         switch (action.type) {
-          case "increase":
-            newScores[action.i]++;
-            break;
-          case "decrease":
+          case 'increase':
+            newScores[action.i]++
+            break
+          case 'decrease':
             if (newScores[action.i] > 0) {
-              newScores[action.i]--;
+              newScores[action.i]--
             }
-            break;
-          case "reset":
-            return Array.from<number>({ length: action.size }).fill(0);
+            break
+          case 'reset':
+            return Array.from<number>({ length: action.size }).fill(0)
         }
-        return newScores;
+        return newScores
       },
       []
-    );
+    )
 
     useImperativeHandle(ref, () => {
       return {
         roll(length, count, excepts) {
           const cands = Array.from({ length })
             .map((_, i) => i + 1)
-            .filter((i) => !excepts.includes(i));
+            .filter((i) => !excepts.includes(i))
 
           for (let i = cands.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [cands[i], cands[j]] = [cands[j], cands[i]];
+            const j = Math.floor(Math.random() * (i + 1))
+            ;[cands[i], cands[j]] = [cands[j], cands[i]]
           }
 
           const teams = cands.reduce(
             (t, n, i) => {
-              t[i % count].push(n);
-              return t;
+              t[i % count].push(n)
+              return t
             },
             Array.from({ length: count }).map<number[]>(() => [])
-          );
+          )
 
-          setTeams(teams);
-          dispatchScores({ type: "reset", size: count });
+          setTeams(teams)
+          dispatchScores({ type: 'reset', size: count })
         },
         get bestScore() {
-          return Math.max(...scores);
+          return Math.max(...scores)
         },
         get bestTeams() {
           return [...scores.entries()]
             .filter(([_, score]) => score >= this.bestScore)
-            .map(([team]) => team);
+            .map(([team]) => team)
         },
         get bestMembers() {
-          return this.bestTeams.map((team) => teams[team]).flat();
+          return this.bestTeams.map((team) => teams[team]).flat()
         },
-      };
-    });
+      }
+    })
 
     return (
       <div className="teams">
@@ -104,15 +105,19 @@ const Teams = forwardRef(
             teamId={i + 1}
             names={control?.current?.names ?? []}
             score={scores[i]}
-            onIncrease={() => dispatchScores({ type: "increase", i })}
-            onDecrease={() => dispatchScores({ type: "decrease", i })}
+            onIncrease={() => {
+              dispatchScores({ type: 'increase', i })
+            }}
+            onDecrease={() => {
+              dispatchScores({ type: 'decrease', i })
+            }}
             icon={control.current?.icon}
           />
         ))}
       </div>
-    );
+    )
   }
-);
+)
 
 function Team({
   team,
@@ -123,14 +128,14 @@ function Team({
   onDecrease,
   icon = String.fromCharCode(10026),
 }: {
-  team: number[];
-  teamId: number;
-  names: { [id: number]: string };
-  score: number;
-  onIncrease: () => void;
-  onDecrease: () => void;
-  icon?: ReactNode;
-}) {
+  team: number[]
+  teamId: number
+  names: Record<number, string>
+  score: number
+  onIncrease: () => void
+  onDecrease: () => void
+  icon?: ReactNode
+}): ReactElement {
   return (
     <div className="team">
       <div className="members">
@@ -143,12 +148,19 @@ function Team({
       <div className="score">
         <div className="score-control">
           <div className="team-id">{teamId}</div>
-          <button type="button" onClick={() => onIncrease()}>
+          <button
+            type="button"
+            onClick={() => {
+              onIncrease()
+            }}
+          >
             &#65291;
           </button>
           <button
             type="button"
-            onClick={() => onDecrease()}
+            onClick={() => {
+              onDecrease()
+            }}
             disabled={score <= 0}
           >
             &#65293;
@@ -161,7 +173,9 @@ function Team({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Teams;
+Teams.displayName = 'Teams'
+
+export default Teams
