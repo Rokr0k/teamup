@@ -1,5 +1,7 @@
 # Team Up&excl;
 
+![CI/CD](https://github.com/Rokr0k/teamup/workflows/CI/CD/badge.svg)
+
 랜덤으로 팀을 짜고 점수를 주고 관리하는 프로그램
 
 [바로가기](https://rokr0k.xyz/teamup/)
